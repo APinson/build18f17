@@ -1,0 +1,9 @@
+What - Who
+
+Screen Research - Jason
+Cap Touch Research - Adam
+Motor Driver Research - Adam
+SW Structure - Youzi
+Drawing/layout - Jason
+GIT - Adam
+DMX Output - Jason

@@ -1,0 +1,13 @@
+ON BUILD18's DIME
+- TI Launchpad - 2x
+- LED Display Screen - 2x
+- Motor Driver - 4x
+- Fader Caps - 6x
+- Motorized Faders - 8x
+
+
+TO GET OUTSIDE OF BUILD18
+- PSU
+- Regulators for power
+- DMX chip
+- Buttons
