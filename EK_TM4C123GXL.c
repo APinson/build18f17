@@ -202,8 +202,8 @@ GPIO_PinConfig gpioPinConfigs[] = {
     GPIOTiva_PB_3 | GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW, // AIN1
     GPIOTiva_PD_7 | GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW, // AIN2
     GPIOTiva_PF_0 | GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW  // Standby
-    //GPIOTiva_PA_6 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_NONE,  // TouchIn
-    //GPIOTiva_PA_7 | GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW  // TouchOut
+    GPIOTiva_PD_0 | GPIO_CFG_INPUT | GPIO_CFG_IN_INT_NONE,  // TouchIn
+    GPIOTiva_PD_1 | GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW  // TouchOut
 };
 
 /*
