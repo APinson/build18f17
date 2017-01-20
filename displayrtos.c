@@ -223,7 +223,21 @@ void drawLetter(SPI_Handle masterSpi,UShort* transmitBuffer, SPI_Transaction mas
             *(transmitBuffer+4)=0x120 +(10)*letterRow;
             *(transmitBuffer+5)=0x129 +(10)*letterRow;
              break;
+
+        case 5 : //Big Middle Box
+
+            *(transmitBuffer)=0x015; //set column address
+            *(transmitBuffer+1)=0x12C+columnBlock*2;
+            *(transmitBuffer+2)=0x14A-(29-columnBlock*2); //29 as the single column address will be 12C-12D(14A-1E(29 in decimal))
+
+            *(transmitBuffer+3)=0x075; //set row address
+            *(transmitBuffer+4)=0x101 +(10)*letterRow;
+            *(transmitBuffer+5)=0x10A +(10)*letterRow;
+             break;
+
         }
+
+
 
     *(transmitBuffer+6)=0x05c;
 
@@ -2081,7 +2095,6 @@ void drawLetter(SPI_Handle masterSpi,UShort* transmitBuffer, SPI_Transaction mas
 
             break;
 
-
     case 'T':
 
             //row 0 always
@@ -2104,7 +2117,7 @@ void drawLetter(SPI_Handle masterSpi,UShort* transmitBuffer, SPI_Transaction mas
 
              //row 2
 
-            *(transmitBuffer)=0x10f;    //3 2
+            *(transmitBuffer)=0x1f0;    //3 2
             *(transmitBuffer+1)=0x100;  //1 0
             *(transmitBuffer+2)=0x100;  //7 6 //always
             *(transmitBuffer+3)=0x100;  //5 4
@@ -2113,7 +2126,7 @@ void drawLetter(SPI_Handle masterSpi,UShort* transmitBuffer, SPI_Transaction mas
 
             //row 3
 
-            *(transmitBuffer)=0x10f;    //3 2
+            *(transmitBuffer)=0x1f0;    //3 2
             *(transmitBuffer+1)=0x100;  //1 0
             *(transmitBuffer+2)=0x100;  //7 6 //always
             *(transmitBuffer+3)=0x100;  //5 4
@@ -2122,7 +2135,7 @@ void drawLetter(SPI_Handle masterSpi,UShort* transmitBuffer, SPI_Transaction mas
 
             //row 4
 
-            *(transmitBuffer)=0x10f;    //3 2
+            *(transmitBuffer)=0x1f0;    //3 2
             *(transmitBuffer+1)=0x100;  //1 0
             *(transmitBuffer+2)=0x100;  //7 6 //always
             *(transmitBuffer+3)=0x100;  //5 4
@@ -2131,7 +2144,7 @@ void drawLetter(SPI_Handle masterSpi,UShort* transmitBuffer, SPI_Transaction mas
 
             //row 5
 
-            *(transmitBuffer)=0x10f;    //3 2
+            *(transmitBuffer)=0x1f0;    //3 2
             *(transmitBuffer+1)=0x100;  //1 0
             *(transmitBuffer+2)=0x100;  //7 6 //always
             *(transmitBuffer+3)=0x100;  //5 4
@@ -2140,7 +2153,7 @@ void drawLetter(SPI_Handle masterSpi,UShort* transmitBuffer, SPI_Transaction mas
 
             //row 6
 
-            *(transmitBuffer)=0x10f;    //3 2
+            *(transmitBuffer)=0x1f0;    //3 2
             *(transmitBuffer+1)=0x100;  //1 0
             *(transmitBuffer+2)=0x100;  //7 6 //always
             *(transmitBuffer+3)=0x100;  //5 4
@@ -2149,7 +2162,7 @@ void drawLetter(SPI_Handle masterSpi,UShort* transmitBuffer, SPI_Transaction mas
 
             //row 7
 
-            *(transmitBuffer)=0x10f;    //3 2
+            *(transmitBuffer)=0x1f0;    //3 2
             *(transmitBuffer+1)=0x100;  //1 0
             *(transmitBuffer+2)=0x100;  //7 6 //always
             *(transmitBuffer+3)=0x100;  //5 4
@@ -2158,7 +2171,7 @@ void drawLetter(SPI_Handle masterSpi,UShort* transmitBuffer, SPI_Transaction mas
 
             //row 8
 
-            *(transmitBuffer)=0x10f;    //3 2
+            *(transmitBuffer)=0x1f0;    //3 2
             *(transmitBuffer+1)=0x100;  //1 0
             *(transmitBuffer+2)=0x100;  //7 6 //always
             *(transmitBuffer+3)=0x100;  //5 4
@@ -2174,7 +2187,6 @@ void drawLetter(SPI_Handle masterSpi,UShort* transmitBuffer, SPI_Transaction mas
             transferOK = SPI_transfer(masterSpi, &masterTransaction);
 
             break;
-
 
     case 'U':
 
@@ -2902,17 +2914,89 @@ Void displayInit (UArg arg0, UArg arg1)
     drawLetter(masterSpi,transmitBuffer,masterTransaction,'M',1,3,1);
     drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',1,4,1);
 
-    drawLetter(masterSpi,transmitBuffer,masterTransaction,'Y',1,0,2); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters,5 letter blocks(2 columns out of 10 per letter), 3 letter rows
-    drawLetter(masterSpi,transmitBuffer,masterTransaction,'Z',1,1,2);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'D',2,0,0); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters,5 letter blocks(2 columns out of 10 per letter), 3 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'I',2,1,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'M',2,2,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',2,3,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',2,4,0);
 
-    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',0,0,0);
-    drawLetter(masterSpi,transmitBuffer,masterTransaction,'A',0,0,2);
-    drawLetter(masterSpi,transmitBuffer,masterTransaction,'B',2,0,0);
-    drawLetter(masterSpi,transmitBuffer,masterTransaction,'B',2,2,2);
-    drawLetter(masterSpi,transmitBuffer,masterTransaction,'C',3,0,0);
-    drawLetter(masterSpi,transmitBuffer,masterTransaction,'A',3,1,1);
-    drawLetter(masterSpi,transmitBuffer,masterTransaction,'D',4,0,0);
-    drawLetter(masterSpi,transmitBuffer,masterTransaction,'E',4,1,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'S',2,0,1); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters,5 letter blocks(2 columns out of 10 per letter), 3 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'U',2,1,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'B',2,2,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'M',2,3,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',2,4,1);
+
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'E',3,0,0); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters,5 letter blocks(2 columns out of 10 per letter), 3 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'M',3,1,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'P',3,2,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'T',3,3,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'Y',3,4,0);
+
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',3,0,1); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters,5 letter blocks(2 columns out of 10 per letter), 3 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',3,1,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',3,2,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',3,3,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',3,4,1);
+
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'E',4,0,0); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters,5 letter blocks(2 columns out of 10 per letter), 3 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'M',4,1,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'P',4,2,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'T',4,3,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'Y',4,4,0);
+
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',4,0,1); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters,5 letter blocks(2 columns out of 10 per letter), 3 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',4,1,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',4,2,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',4,3,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',4,4,1);
+
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'A',5,0,0); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'B',5,1,0); //big box 5 has 0-14 column blocks and 0-2 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'C',5,2,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'D',5,3,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'E',5,4,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'F',5,5,0); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'G',5,6,0); //big box 5 has 0-14 column blocks and 0-2 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'H',5,7,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'I',5,8,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'J',5,9,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'K',5,10,0); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'L',5,11,0); //big box 5 has 0-14 column blocks and 0-2 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'M',5,12,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'N',5,13,0);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'O',5,14,0);
+
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'P',5,0,1); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'Q',5,1,1); //big box 5 has 0-14 column blocks and 0-2 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'R',5,2,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'S',5,3,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'T',5,4,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'U',5,5,1); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'V',5,6,1); //big box 5 has 0-14 column blocks and 0-2 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'W',5,7,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'X',5,8,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'Y',5,9,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'Z',5,10,1); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,' ',5,11,1); //big box 5 has 0-14 column blocks and 0-2 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'A',5,12,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'B',5,13,1);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'C',5,14,1);
+
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'D',5,0,2); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'E',5,1,2); //big box 5 has 0-14 column blocks and 0-2 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'F',5,2,2);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'G',5,3,2);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'H',5,4,2);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'I',5,5,2); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'J',5,6,2); //big box 5 has 0-14 column blocks and 0-2 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'K',5,7,2);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'L',5,8,2);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'M',5,9,2);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'N',5,10,2); //char letter,char box,char columnBlock, char letterRow){ //boxes are the 5 boxes, 0 to 4, left to right,letters are Captial letters
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'O',5,11,2); //big box 5 has 0-14 column blocks and 0-2 letter rows
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'P',5,12,2);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'Q',5,13,2);
+    drawLetter(masterSpi,transmitBuffer,masterTransaction,'R',5,14,2);
     /* Deinitialize SPI */
     SPI_close(masterSpi);
 
